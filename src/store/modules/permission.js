@@ -6,8 +6,8 @@ import { asyncRoutes, constantRoutes } from '@/router'
  * @param route
  */
 function hasPermission(roles, route) {
-  if (route.meta && route.meta.roles) {
-    return roles.some(role => route.meta.roles.includes(role))
+  if (route.meta && route.meta.permission) {
+    return roles.permissions.some(role => route.meta.permission.includes(role.permissionId))
   } else {
     return true
   }
@@ -48,10 +48,18 @@ const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
       let accessedRoutes
-      if (roles.includes('admin')) {
+      if (roles.isSuper === 1) {
         accessedRoutes = asyncRoutes || []
       } else {
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+        accessedRoutes = accessedRoutes.filter(route => {
+          if (route.children) {
+            return route.children.length > 0
+          } else {
+            return true
+          }
+        })
+        accessedRoutes[0].path = "/"
       }
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)

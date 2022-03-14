@@ -7,7 +7,7 @@ const getDefaultState = () => {
     token: getToken(),
     name: '',
     avatar: '',
-    roles: []
+    roles: {}
   }
 }
 
@@ -34,7 +34,7 @@ const mutations = {
 const actions = {
   login({ commit }, { username, password }) {
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
+      login({ username: username.trim(), password }).then(response => {
         const { data } = response
         commit('SET_TOKEN', data.token)
         setToken(data.token)
@@ -44,31 +44,22 @@ const actions = {
       })
     })
   },
-
-  getInfo({ commit, state }) {
+  getInfo({ commit }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const { data } = response
-        if (!data) {
-          reject('Verification failed, please Login again.')
-        }
-        const { roles, name, avatar } = data
-        if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
-        }
+      getInfo().then(response => {
+        const { roles, userInfo: { real_name } } = response.data
         commit('SET_ROLES', roles)
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        resolve(data)
+        commit('SET_NAME', real_name)
+        commit('SET_AVATAR', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
+        resolve(roles)
       }).catch(error => {
         reject(error)
       })
     })
   },
-
-  logout({ commit, state }) {
+  logout({ commit }) {
     return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
+      logout().then(() => {
         removeToken()
         resetRouter()
         commit('RESET_STATE')
@@ -78,7 +69,6 @@ const actions = {
       })
     })
   },
-
   resetToken({ commit }) {
     return new Promise(resolve => {
       removeToken()
@@ -94,4 +84,3 @@ export default {
   mutations,
   actions
 }
-

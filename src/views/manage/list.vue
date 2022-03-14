@@ -1,10 +1,10 @@
 <template>
-  <div class="app-container">Dashboard</div>
+  <div class="app-container">ManageList</div>
 </template>
 
 <script>
 export default {
-  name: "Dashboard",
+  name: "ManageList",
 };
 </script>
 

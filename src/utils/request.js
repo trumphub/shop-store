@@ -24,14 +24,13 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const res = response.data
-    if (res.code !== 200) {
+    if (res.status !== 200) {
       Message({
         message: res.message || 'Error',
         type: 'error',
         duration: 5 * 1000
       })
-
-      if (res.code === 401) {
+      if (res.status === 401) {
         store.dispatch('user/resetToken').then(() => {
           location.reload()
         })

@@ -11,27 +11,44 @@ export const constantRoutes = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
-
   {
     path: '/404',
     component: () => import('@/views/404'),
     hidden: true
-  },
+  }
+]
 
+export const asyncRoutes = [
+  // 后台首页
   {
     path: '/',
     component: Layout,
     redirect: '/dashboard',
     children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
+      path: '/dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'dashboard', permission: ['/index'] }
     }]
-  }
-]
-
-export const asyncRoutes = [
+  },
+  // 管理员
+  {
+    path: '/manage',
+    component: Layout,
+    redirect: '/manage/list',
+    meta: { title: '管理员', icon: 'dashboard', permission: ['/manage'] },
+    children: [
+      {
+        path: '/manage/list',
+        component: () => import('@/views/manage/list'),
+        meta: { title: '管理员列表', permission: ['/manage/user/index'] }
+      },
+      {
+        path: '/manage/role',
+        component: () => import('@/views/manage/role'),
+        meta: { title: '角色管理', permission: ['/manage/role/index'] }
+      }
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
 
