@@ -5,6 +5,8 @@
     :visible="visible"
     :show-close="false"
     @close="handleClose"
+    :close-on-click-modal="false"
+    :close-on-press-escape="false"
   >
     <el-form
       label-width="196px"

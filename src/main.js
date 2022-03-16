@@ -11,6 +11,7 @@ import router from './router'
 
 import '@/icons'
 import '@/permission'
+import '@/directives'
 
 Vue.use(ElementUI)
 

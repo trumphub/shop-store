@@ -9,6 +9,7 @@
               type="primary"
               icon="el-icon-plus"
               size="small"
+              v-action:add
             >
               新增
             </el-button>
@@ -37,10 +38,15 @@
         </el-table-column>
         <el-table-column prop="real_name" label="姓名" />
         <el-table-column prop="sort" label="排序" />
-        <el-table-column prop="update_time" label="添加时间" />
+        <el-table-column prop="create_time" label="添加时间" />
         <el-table-column label="操作">
           <template slot-scope="{ row }">
-            <el-button @click="showEdit(row)" type="text" size="small">
+            <el-button
+              @click="showEdit(row)"
+              type="text"
+              size="small"
+              v-action:edit
+            >
               编辑
             </el-button>
             <el-button
@@ -48,6 +54,7 @@
               v-if="row.is_super !== 1"
               type="text"
               size="small"
+              v-action:delete
             >
               删除
             </el-button>

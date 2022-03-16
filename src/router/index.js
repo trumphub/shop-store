@@ -36,6 +36,7 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/manage/list',
     meta: { title: '管理员', icon: 'dashboard', permission: ['/manage'] },
+    alwaysShow: true,
     children: [
       {
         path: '/manage/list',
