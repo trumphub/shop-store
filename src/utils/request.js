@@ -13,6 +13,19 @@ service.interceptors.request.use(
     if (store.getters.token) {
       config.headers['Access-Token'] = getToken()
     }
+    if (config.params) {
+      let str = ''
+      for (const key in config.params) {
+        if (Object.hasOwnProperty.call(config.params, key)) {
+          const val = config.params[key];
+          if (val) {
+            str += `&${key}=${val}`
+          }
+        }
+      }
+      config.url += str
+      config.params = undefined
+    }
     return config
   },
   error => {
