@@ -30,6 +30,7 @@
           v-model="item.roles"
           placeholder=""
           clearable
+          :show-all-levels="false"
         />
       </el-form-item>
       <template v-if="title === '新增管理员'">
@@ -80,6 +81,8 @@ export default {
         multiple: true,
         label: "role_name",
         value: "role_id",
+        checkStrictly: true,
+        emitPath: false,
       },
       rules: {
         real_name: [
@@ -188,7 +191,7 @@ export default {
 
 <style lang="scss">
 .popper {
-  width: 364px;
+  min-width: 364px;
 }
 </style>
 <style lang="scss" scoped>

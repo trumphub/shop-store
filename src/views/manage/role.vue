@@ -6,7 +6,7 @@
           新增
         </el-button>
       </div>
-      <el-table :data="roleList" v-loading="loading">
+      <el-table row-key="role_id" :data="roleList" v-loading="loading">
         <el-table-column prop="role_id" label="角色ID" />
         <el-table-column prop="role_name" label="角色名称" />
         <el-table-column prop="sort" label="排序" />

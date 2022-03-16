@@ -180,7 +180,7 @@ export default {
     showEdit({ real_name, user_name, roleIds, sort, is_super, store_user_id }) {
       this.item.real_name = real_name;
       this.item.user_name = user_name;
-      this.item.roles = roleIds.map((item) => [item]);
+      this.item.roles = roleIds;
       this.item.sort = sort;
 
       this.isSuper = is_super;
@@ -190,7 +190,6 @@ export default {
     },
     handleCommit() {
       return new Promise((resolve, reject) => {
-        this.item.roles = this.item.roles.map((role) => role[0]);
         if (this.title === "新增管理员") {
           Api.addUser({ form: this.item }).then(resolve).catch(reject);
         } else {
