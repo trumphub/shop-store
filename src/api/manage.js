@@ -14,6 +14,56 @@ export function roleList(params) {
 }
 
 /**
+ * 菜单权限列表
+ * @returns 
+ */
+export function menuList() {
+    return request({
+        url: '/store.menu/list',
+        method: 'get'
+    })
+}
+
+/**
+ * 添加角色
+ * @param {*} data 
+ * @returns 
+ */
+export function addRole(data) {
+    return request({
+        url: '/store.role/add',
+        method: 'post',
+        data
+    })
+}
+
+/**
+ * 编辑角色
+ * @param {*} data 
+ * @returns 
+ */
+export function editRole(data) {
+    return request({
+        url: '/store.role/edit',
+        method: 'post',
+        data
+    })
+}
+
+/**
+ * 删除角色
+ * @param {*} data 
+ * @returns 
+ */
+export function deleteRole(data) {
+    return request({
+        url: '/store.role/delete',
+        method: 'post',
+        data
+    })
+}
+
+/**
  * 管理员列表
  * @param {*} params 
  * @returns 

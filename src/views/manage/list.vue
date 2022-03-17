@@ -1,77 +1,79 @@
 <template>
   <div class="app-container">
-    <el-card>
-      <div slot="header">
-        <el-row type="flex" justify="space-between">
-          <el-col :span="6">
-            <el-button
-              @click="showAddForm"
-              type="primary"
-              icon="el-icon-plus"
-              size="small"
-              v-action:add
-            >
-              新增
-            </el-button>
-          </el-col>
-          <el-col :span="8">
-            <el-input
-              placeholder="请输入用户名/姓名"
-              suffix-icon="el-icon-search"
-              size="small"
-              v-model.trim="userParams.search"
-              @change="handleChange"
-            >
-            </el-input>
-          </el-col>
-        </el-row>
-      </div>
-      <el-table :data="userList.data" v-loading="loading">
-        <el-table-column prop="store_user_id" label="管理员ID" />
-        <el-table-column label="用户名">
-          <template slot-scope="{ row }">
-            <span>{{ row.user_name }}</span>
-            <el-tag v-if="row.is_super === 1" type="success" size="small">
-              超级管理员
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column prop="real_name" label="姓名" />
-        <el-table-column prop="sort" label="排序" />
-        <el-table-column prop="create_time" label="添加时间" />
-        <el-table-column label="操作">
-          <template slot-scope="{ row }">
-            <el-button
-              @click="showEdit(row)"
-              type="text"
-              size="small"
-              v-action:edit
-            >
-              编辑
-            </el-button>
-            <el-button
-              @click="handleDelete(row.store_user_id)"
-              v-if="row.is_super !== 1"
-              type="text"
-              size="small"
-              v-action:delete
-            >
-              删除
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <div class="el-pagination-wrap clearfix" v-if="userList.last_page > 1">
-        <el-pagination
-          :current-page="userList.current_page"
-          :page-size="userList.per_page"
-          :total="userList.total"
-          background
-          layout="prev, pager, next"
-          @current-change="handleCurrentChange"
-        />
-      </div>
-    </el-card>
+    <el-scrollbar style="height: 100%">
+      <el-card class="app">
+        <div slot="header">
+          <el-row type="flex" justify="space-between">
+            <el-col :span="6">
+              <el-button
+                @click="showAddForm"
+                type="primary"
+                icon="el-icon-plus"
+                size="small"
+                v-action:add
+              >
+                新增
+              </el-button>
+            </el-col>
+            <el-col :span="8">
+              <el-input
+                placeholder="请输入用户名/姓名"
+                suffix-icon="el-icon-search"
+                size="small"
+                v-model.trim="userParams.search"
+                @change="handleChange"
+              >
+              </el-input>
+            </el-col>
+          </el-row>
+        </div>
+        <el-table :data="userList.data" v-loading="loading">
+          <el-table-column prop="store_user_id" label="管理员ID" />
+          <el-table-column label="用户名">
+            <template slot-scope="{ row }">
+              <span>{{ row.user_name }}</span>
+              <el-tag v-if="row.is_super === 1" type="success" size="small">
+                超级管理员
+              </el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column prop="real_name" label="姓名" />
+          <el-table-column prop="sort" label="排序" />
+          <el-table-column prop="create_time" label="添加时间" />
+          <el-table-column label="操作">
+            <template slot-scope="{ row }">
+              <el-button
+                @click="showEdit(row)"
+                type="text"
+                size="small"
+                v-action:edit
+              >
+                编辑
+              </el-button>
+              <el-button
+                @click="handleDelete(row.store_user_id)"
+                v-if="row.is_super !== 1"
+                type="text"
+                size="small"
+                v-action:delete
+              >
+                删除
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div class="el-pagination-wrap clearfix" v-if="userList.last_page > 1">
+          <el-pagination
+            :current-page="userList.current_page"
+            :page-size="userList.per_page"
+            :total="userList.total"
+            background
+            layout="prev, pager, next"
+            @current-change="handleCurrentChange"
+          />
+        </div>
+      </el-card>
+    </el-scrollbar>
     <manage-list-dialog
       :roleList="roleList"
       :title="title"
