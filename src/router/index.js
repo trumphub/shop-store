@@ -50,6 +50,57 @@ export const asyncRoutes = [
       }
     ]
   },
+  // 店铺管理
+  {
+    path: '/store',
+    component: Layout,
+    redirect: '/store/setting',
+    meta: { title: '店铺管理', icon: 'dashboard', permission: ['/store'] },
+    alwaysShow: true,
+    children: [
+      {
+        path: '/store/setting',
+        component: () => import('@/views/store/setting'),
+        meta: { title: '店铺设置', permission: ['/store/setting'] }
+      },
+      {
+        path: '/store/address',
+        component: () => import('@/views/store/address'),
+        meta: { title: '地址管理', permission: ['/store/address/index'] }
+      },
+      {
+        path: '/page',
+        component: () => import('@/views/page/template'),
+        redirect: '/page/index',
+        meta: { title: '店铺页面', permission: ['/page'] },
+        alwaysShow: true,
+        children: [
+          {
+            path: '/page/index',
+            component: () => import('@/views/page'),
+            meta: { title: '页面设计', permission: ['/page/index'] }
+          },
+          {
+            path: '/page/create',
+            component: () => import('@/views/page/create'),
+            meta: { title: '新增页面', permission: ['/page/create'] },
+            hidden: true
+          },
+          {
+            path: '/page/update',
+            component: () => import('@/views/page/update'),
+            meta: { title: '编辑页面', permission: ['/page/update'] },
+            hidden: true
+          },
+          {
+            path: '/page/category',
+            component: () => import('@/views/page/category'),
+            meta: { title: '分类模板', permission: ['/page/category'] }
+          }
+        ]
+      }
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
 
