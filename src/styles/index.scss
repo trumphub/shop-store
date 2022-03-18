@@ -72,6 +72,7 @@ div:focus {
   overflow-x: hidden;
 }
 
-.el-cascader-menu__list {
+.el-cascader-menu__list,
+.el-select-dropdown__list {
   padding: 6px 0 23px;
 }
