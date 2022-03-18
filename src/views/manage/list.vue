@@ -21,7 +21,7 @@
                 suffix-icon="el-icon-search"
                 size="small"
                 v-model.trim="userParams.search"
-                @change="handleChange"
+                @keyup.native.enter="handleChange"
               >
               </el-input>
             </el-col>

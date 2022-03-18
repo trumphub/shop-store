@@ -24,6 +24,7 @@ export const asyncRoutes = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
+    meta: { permission: ['/index'] },
     children: [{
       path: '/dashboard',
       component: () => import('@/views/dashboard/index'),
