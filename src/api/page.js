@@ -38,3 +38,10 @@ export function deletePage(data) {
         data
     })
 }
+
+export function defaultData() {
+    return request({
+        url: '/page/defaultData',
+        method: 'get',
+    })
+}

@@ -5,7 +5,13 @@
         <div slot="header">
           <el-row type="flex" justify="space-between">
             <el-col :span="6">
-              <el-button type="primary" icon="el-icon-plus" size="small">
+              <el-button
+                @click="handleAdd"
+                type="primary"
+                icon="el-icon-plus"
+                size="small"
+                v-permission="createPath"
+              >
                 新增
               </el-button>
             </el-col>
@@ -32,7 +38,9 @@
           <el-table-column prop="update_time" label="更新时间" />
           <el-table-column label="操作">
             <template slot-scope="{ row }">
-              <el-button type="text" size="small">编辑</el-button>
+              <el-button type="text" size="small" v-permission="updatePath"
+                >编辑</el-button
+              >
               <el-button
                 v-if="row.page_type !== 10"
                 type="text"
@@ -75,6 +83,8 @@ export default {
   name: "PageIndex",
   data() {
     return {
+      createPath: "/page/create",
+      updatePath: "/page/update",
       type: {
         10: "首页",
         20: "自定义页",
@@ -97,6 +107,9 @@ export default {
     this.getPageList();
   },
   methods: {
+    handleAdd() {
+      this.$router.push(this.createPath);
+    },
     handleChange() {
       this.searchParam.page = 1;
       this.getPageList();

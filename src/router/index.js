@@ -28,7 +28,7 @@ export const asyncRoutes = [
     children: [{
       path: '/dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: 'dashboard', permission: ['/index'] }
+      meta: { title: '首页', icon: 'home', permission: ['/index'] }
     }]
   },
   // 管理员
@@ -36,7 +36,7 @@ export const asyncRoutes = [
     path: '/manage',
     component: Layout,
     redirect: '/manage/list',
-    meta: { title: '管理员', icon: 'dashboard', permission: ['/manage'] },
+    meta: { title: '管理员', icon: 'manage', permission: ['/manage'] },
     alwaysShow: true,
     children: [
       {
@@ -56,7 +56,7 @@ export const asyncRoutes = [
     path: '/store',
     component: Layout,
     redirect: '/store/setting',
-    meta: { title: '店铺管理', icon: 'dashboard', permission: ['/store'] },
+    meta: { title: '店铺管理', icon: 'shop', permission: ['/store'] },
     alwaysShow: true,
     children: [
       {
