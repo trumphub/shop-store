@@ -4,7 +4,7 @@
       <el-card class="app">
         <div class="row">
           <ComponentLib @handleClickItem="handleClickItem" />
-          <Phone />
+          <Phone :data="data" v-if="data" :selectedIndex="selectedIndex" />
           <Editor />
         </div>
       </el-card>
@@ -24,12 +24,14 @@ export default {
   components: { ComponentLib, Phone, Editor },
   data() {
     return {
-      // 页面装修默认数据 形如 {page: {}, items: []}
+      // 页面装修默认数据 形如 {page: {}, items: {}}
       // page 组件编辑参数
       // items 默认组件列表 {data defaultData name params style type}
       defaultData: {},
       // 当前页面数据
-      data: { page: {}, items: [] },
+      data: null,
+      // 当前选中的元素索引
+      selectedIndex: "page",
     };
   },
   mounted() {
@@ -37,12 +39,14 @@ export default {
   },
   methods: {
     handleClickItem(type) {
-      console.log(type);
+      const newItem = cloneDeep(this.defaultData.items[type]);
+      this.data.items.push(newItem);
     },
     async init() {
       try {
         const { data } = await Api.defaultData();
         this.defaultData = data;
+        this.data = { page: cloneDeep(data.page), items: [] };
       } catch (error) {}
     },
   },

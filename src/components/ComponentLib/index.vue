@@ -123,7 +123,9 @@ export default {
 
 <style lang="scss" scoped>
 .componentlib {
-  width: 300px;
+  width: 280px;
+  padding: 0 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   .list {
     display: flex;
     flex-wrap: wrap;
@@ -135,8 +137,8 @@ export default {
       flex-direction: column;
       align-items: center;
       justify-content: space-evenly;
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       color: #9797a1;
       cursor: pointer;
       .icon {
