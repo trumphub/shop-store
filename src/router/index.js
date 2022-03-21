@@ -71,6 +71,21 @@ export const asyncRoutes = [
       }
     ]
   },
+  // 商品管理
+  {
+    path: '/goods',
+    component: Layout,
+    redirect: '/goods/list',
+    meta: { title: '商品管理', icon: 'goods', permission: ['/goods'] },
+    alwaysShow: true,
+    children: [
+      {
+        path: '/goods/list',
+        component: () => import('@/views/goods/list'),
+        meta: { title: '商品列表', permission: ['/goods/index'] }
+      }
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
 
