@@ -52,14 +52,10 @@ const actions = {
         accessedRoutes = asyncRoutes || []
       } else {
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
-        accessedRoutes = accessedRoutes.filter(route => {
-          if (route.children) {
-            return route.children.length > 0
-          } else {
-            return true
-          }
-        })
         accessedRoutes[0].path = "/"
+        if (accessedRoutes[0].children.length) {
+          accessedRoutes[0].redirect = accessedRoutes[0].children[0].path
+        }
       }
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)
