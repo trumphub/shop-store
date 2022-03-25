@@ -12,17 +12,20 @@
                 <el-input v-model.trim="searchParams.goodsNo" />
               </el-form-item>
               <el-form-item label="商品分类">
-                <el-select v-model="searchParams.categoryId" clearable>
-                  <el-option
-                    v-for="{ category_id, name } in categoryList"
-                    :key="category_id"
-                    :label="name"
-                    :value="category_id"
-                  ></el-option>
-                </el-select>
+                <el-cascader
+                  v-model="searchParams.categoryId"
+                  :options="categoryList"
+                  :props="props"
+                  placeholder=""
+                  :show-all-levels="false"
+                  clearable
+                />
               </el-form-item>
               <el-form-item>
-                <el-button @click="search" icon="el-icon-search" type="primary"
+                <el-button
+                  @click.prevent="search"
+                  icon="el-icon-search"
+                  type="primary"
                   >搜索</el-button
                 >
               </el-form-item>
@@ -44,11 +47,32 @@
               icon="el-icon-plus"
               type="primary"
               v-permission="createGoodsPath"
+              @click="toCreatePage"
               >创建商品</el-button
             >
+            <!-- 批量操作 -->
+            <el-button-group
+              style="margin-left: 20px"
+              v-show="multipleSelection.length"
+            >
+              <el-button size="small" plain @click="handleUpdateStatus(true)"
+                >上架</el-button
+              >
+              <el-button size="small" plain @click="handleUpdateStatus(false)"
+                >下架</el-button
+              >
+              <el-button size="small" plain @click="handleDeletes"
+                >删除</el-button
+              >
+            </el-button-group>
+            <!-- 批量操作 -->
           </el-row>
         </div>
-        <el-table :data="list.data" v-loading="loading">
+        <el-table
+          :data="list.data"
+          v-loading="loading"
+          @selection-change="handleSelectionChange"
+        >
           <el-table-column type="selection" width="50" align="center" />
           <el-table-column
             prop="goods_id"
@@ -102,7 +126,7 @@
             align="center"
           />
           <el-table-column label="操作" width="160" align="center">
-            <template>
+            <template slot-scope="{ row }">
               <el-button
                 type="text"
                 size="small"
@@ -110,7 +134,12 @@
               >
                 编辑
               </el-button>
-              <el-button type="text" size="small" v-action:delete>
+              <el-button
+                @click="deleteGoods(row.goods_id)"
+                type="text"
+                size="small"
+                v-action:delete
+              >
                 删除
               </el-button>
             </template>
@@ -148,6 +177,12 @@ export default {
         page: 1,
       },
       categoryList: [],
+      props: {
+        checkStrictly: true,
+        value: "category_id",
+        label: "name",
+        emitPath: false,
+      },
       loading: false,
       list: {
         current_page: 1,
@@ -156,6 +191,7 @@ export default {
         per_page: 15,
         total: 1,
       },
+      multipleSelection: [],
     };
   },
   mounted() {
@@ -184,6 +220,49 @@ export default {
     handleCurrentChange(page) {
       this.searchParams.page = page;
       this.getGoodsList();
+    },
+    toCreatePage() {
+      this.$router.push(this.createGoodsPath);
+    },
+    async deleteGoods(id) {
+      await this.$confirm("您确定要删除该记录吗", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      });
+      const { message } = await Api.deleteGoods({ goodsIds: [+id] });
+      this.$message({
+        message,
+        type: "success",
+      });
+      const { last_page, current_page, data } = this.list;
+      if (last_page > 1) {
+        if (last_page === current_page && data.length === 1) {
+          this.searchParams.page -= 1;
+        }
+      }
+      await this.getGoodsList();
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
+    async handleUpdateStatus(state) {
+      const goodsIds = this.multipleSelection.map((item) => item.goods_id);
+      const { message } = await Api.updateStatus({ goodsIds, state });
+      this.$message({
+        message,
+        type: "success",
+      });
+      this.getGoodsList();
+    },
+    async handleDeletes() {
+      const goodsIds = this.multipleSelection.map((item) => item.goods_id);
+      const { message } = await Api.deleteGoods({ goodsIds });
+      this.$message({
+        message,
+        type: "success",
+      });
+      this.search();
     },
   },
 };
