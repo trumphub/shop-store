@@ -97,3 +97,29 @@ export function updateStatus(data) {
         data
     })
 }
+
+/**
+ * 获取单个商品
+ * @param {*} params 
+ * @returns 
+ */
+export function getGoodsById(params) {
+    return request({
+        url: '/goods/detail',
+        method: 'get',
+        params
+    })
+}
+
+/**
+ * 更新商品
+ * @param {*} data 
+ * @returns 
+ */
+export function updateGoods(data) {
+    return request({
+        url: '/goods/edit',
+        method: 'post',
+        data
+    })
+}

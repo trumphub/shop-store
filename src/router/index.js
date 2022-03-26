@@ -89,6 +89,13 @@ export const asyncRoutes = [
         component: () => import('@/views/goods/create'),
         meta: { title: '创建商品', permission: ['/goods/create'] },
         hidden: true
+      },
+      {
+        path: '/goods/update',
+        component: () => import('@/views/goods/update'),
+        meta: { title: '编辑商品', permission: ['/goods/update'] },
+        hidden: true,
+        props: (route) => route.query
       }
     ]
   },

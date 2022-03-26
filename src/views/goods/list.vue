@@ -131,6 +131,7 @@
                 type="text"
                 size="small"
                 v-permission="updateGoodsPath"
+                @click="handleEdit(row.goods_id)"
               >
                 编辑
               </el-button>
@@ -223,6 +224,9 @@ export default {
     },
     toCreatePage() {
       this.$router.push(this.createGoodsPath);
+    },
+    handleEdit(goodsId) {
+      this.$router.push({ path: "/goods/update", query: { goodsId } });
     },
     async deleteGoods(id) {
       await this.$confirm("您确定要删除该记录吗", "提示", {
