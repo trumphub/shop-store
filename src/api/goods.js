@@ -123,3 +123,42 @@ export function updateGoods(data) {
         data
     })
 }
+
+/**
+ * 添加分类
+ * @param {*} data 
+ * @returns 
+ */
+export function addCategory(data) {
+    return request({
+        url: '/category/add',
+        method: 'post',
+        data
+    })
+}
+
+/**
+ * 编辑分类
+ * @param {*} data 
+ * @returns 
+ */
+export function editCategory(data) {
+    return request({
+        url: '/category/edit',
+        method: 'post',
+        data
+    })
+}
+
+/**
+ * 删除分类
+ * @param {*} data 
+ * @returns 
+ */
+export function deleteCategory(data) {
+    return request({
+        url: '/category/delete',
+        method: 'post',
+        data
+    })
+}

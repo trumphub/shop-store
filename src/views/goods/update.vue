@@ -831,7 +831,7 @@ export default {
       this.videoUrl = external_url;
     },
     removeMovie() {
-      this.item.video_id = undefined;
+      this.item.video_id = 0;
       this.videoUrl = "";
     },
     _handleBeforeUpload(file) {
@@ -851,7 +851,7 @@ export default {
       this.item.video_cover_id = file_id;
     },
     __onRemove() {
-      this.item.video_cover_id = undefined;
+      this.item.video_cover_id = 0;
     },
     addSpecItem() {
       const specList = this.item.specData.specList;

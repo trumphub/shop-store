@@ -96,6 +96,11 @@ export const asyncRoutes = [
         meta: { title: '编辑商品', permission: ['/goods/update'] },
         hidden: true,
         props: (route) => route.query
+      },
+      {
+        path: '/goods/category',
+        component: () => import('@/views/goods/category'),
+        meta: { title: '商品分类', permission: ['/goods/category/index'] },
       }
     ]
   },
