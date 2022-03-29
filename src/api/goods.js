@@ -162,3 +162,49 @@ export function deleteCategory(data) {
         data
     })
 }
+
+/**
+ * 服务与承诺列表
+ * @returns 
+ */
+export function serviceListPage(params) {
+    return request({
+        url: '/goods.service/list',
+        method: 'get',
+        params
+    })
+}
+
+/**
+ * 添加服务
+ * @param {*} data 
+ * @returns 
+ */
+export function addService(data) {
+    return request({
+        url: '/goods.service/add',
+        method: 'post',
+        data
+    })
+}
+
+/**
+ * 编辑服务
+ * @param {*} data 
+ * @returns 
+ */
+export function editService(data) {
+    return request({
+        url: '/goods.service/edit',
+        method: 'post',
+        data
+    })
+}
+
+export function deleteService(data) {
+    return request({
+        url: '/goods.service/delete',
+        method: 'post',
+        data
+    })
+}

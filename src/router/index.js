@@ -101,6 +101,11 @@ export const asyncRoutes = [
         path: '/goods/category',
         component: () => import('@/views/goods/category'),
         meta: { title: '商品分类', permission: ['/goods/category/index'] },
+      },
+      {
+        path: '/goods/service',
+        component: () => import('@/views/goods/service'),
+        meta: { title: '服务承诺', permission: ['/goods/service/index'] }
       }
     ]
   },
