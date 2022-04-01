@@ -208,3 +208,55 @@ export function deleteService(data) {
         data
     })
 }
+
+/**
+ * 评价列表
+ * @param {*} params 
+ * @returns 
+ */
+export function getCommentList(params) {
+    return request({
+        url: '/goods.comment/list',
+        method: 'get',
+        params
+    })
+}
+
+/**
+ * 删除评价
+ * @param {*} data 
+ * @returns 
+ */
+export function deleteComment(data) {
+    return request({
+        url: '/goods.comment/delete',
+        method: 'post',
+        data
+    })
+}
+
+/**
+ * 查看评论
+ * @param {*} params 
+ * @returns 
+ */
+export function getComment(params) {
+    return request({
+        url: '/goods.comment/detail',
+        method: 'get',
+        params
+    })
+}
+
+/**
+ * 编辑评论
+ * @param {*} data 
+ * @returns 
+ */
+export function updateComment(data) {
+    return request({
+        url: '/goods.comment/edit',
+        method: 'post',
+        data
+    })
+}

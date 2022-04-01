@@ -18,7 +18,7 @@ service.interceptors.request.use(
       for (const key in config.params) {
         if (Object.hasOwnProperty.call(config.params, key)) {
           const val = config.params[key];
-          if (val) {
+          if (val || val === 0) {
             str += `&${key}=${val}`
           }
         }
