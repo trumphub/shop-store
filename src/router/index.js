@@ -114,6 +114,27 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/order',
+    component: Layout,
+    redirect: '/order/all',
+    meta: { title: '订单管理', icon: 'order', permission: ['/order'] },
+    alwaysShow: true,
+    children: [
+      {
+        path: '/order/all',
+        component: () => import('@/views/order/all'),
+        meta: { title: '全部订单', permission: ['/order/list/all'] }
+      },
+      {
+        path: '/order/detail',
+        component: () => import('@/views/order/detail'),
+        meta: { title: '订单详情', permission: ['/order/detail'] },
+        hidden: true,
+        props: route => route.query
+      }
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
 

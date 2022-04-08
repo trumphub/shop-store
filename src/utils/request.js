@@ -19,7 +19,17 @@ service.interceptors.request.use(
         if (Object.hasOwnProperty.call(config.params, key)) {
           const val = config.params[key];
           if (val || val === 0) {
-            str += `&${key}=${val}`
+            if (Array.isArray(val)) {
+              for (let i = 0; i < val.length; i++) {
+                if (val[i] instanceof Date) {
+                  str += `&${key}[]=${val[i].toJSON()}`
+                } else {
+                  str += `&${key}[]=${val[i]}`
+                }
+              }
+            } else {
+              str += `&${key}=${val}`
+            }
           }
         }
       }
