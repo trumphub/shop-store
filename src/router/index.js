@@ -132,6 +132,11 @@ export const asyncRoutes = [
         meta: { title: '订单详情', permission: ['/order/detail'] },
         hidden: true,
         props: route => route.query
+      },
+      {
+        path: '/order/export',
+        component: () => import('@/views/order/export'),
+        meta: { title: '订单导出', permission: ['/order/tools/export'] },
       }
     ]
   },

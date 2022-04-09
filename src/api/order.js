@@ -75,3 +75,29 @@ export function deleteOrder(data) {
         data
     })
 }
+
+/**
+ * 导出订单
+ * @param {*} params 
+ * @returns 
+ */
+export function exportOrder(params) {
+    return request({
+        url: '/order.export/exportOrder',
+        method: 'get',
+        params
+    })
+}
+
+/**
+ * 导出列表
+ * @param {*} params 
+ * @returns 
+ */
+export function exportList(params) {
+    return request({
+        url: '/order.export/list',
+        method: 'get',
+        params
+    })
+}
